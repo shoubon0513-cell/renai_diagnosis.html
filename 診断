@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>恋愛診断</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fffafc;
+      text-align: center;
+      padding: 30px;
+    }
+    .card {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #ff7aa2;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ff4f84;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      white-space: pre-line;
+    }
+    #answers {
+      margin-top: 15px;
+      font-size: 14px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>💘 恋愛診断</h2>
+    <p id="question"></p>
+    <div id="buttons">
+      <button onclick="answer(true)">はい</button>
+      <button onclick="answer(false)">いいえ</button>
+    </div>
+    <div id="result"></div>
+    <div id="answers"></div>
+  </div>
+
+  <script>
+    const questions = [
+      "恋愛話をするのは好き",
+      "一人でやる趣味が多い",
+      "コレクションを集めるのが好きだ",
+      "恋人に1番求めるのは性格である",
+      "異性と喋るのが苦手だ",
+      "異性と触れ合う機会のある趣味がある",
+      "目を合わせるのが苦手だ",
+      "チャラそうな見た目のほうが好きだ",
+      "必要なら必要な嘘をつくことがある",
+      "落ち込んだ時はそばで慰めてほしい",
+      "恋愛では追われるより追いたい派だ",
+      "休日は家でゆっくりしたい",
+      "嫉妬深いと言われたころがある",
+      "自分は依存体質だと思う",
+      "自分の心には穴が開いているようなさみしさがある",
+      "好きな曲が見つかったらそれしか聞かなくなる",
+      "好きな人にはぐいぐいきてほしい",
+      "恋人がいるとその人中心の生活になる",
+      "相手のSNSを頻繁にチェックしてしまう",
+      "理想のタイプがはっきり決まっている",
+      "好きになった人がタイプだ",
+      "相手からLINEの返信が遅いと不安になる",
+      "恋愛は自分から告白するより待つほうが多い",
+      "恋人の過去の恋愛が気になってしまう",
+      "サプライズやロマンチックな演出が好き",
+      "一目惚れをするタイプだと思う",
+      "恋人にはできるだけ会いたい、連絡も頻繁がいい",
+      "自分はわりとモテる方である",
+      "告白された回数は1,2回以上だ",
+      "自分は惚れやすいタイプだ",
+      "甘えるより甘えられたい",
+      "自分は人より一途な自信がある",
+      "自分はわりと計算高い"
+    ];
+
+    let current = 0, yesCount = 0, answers = [];
+
+    function showQuestion() {
+      if (current < questions.length) {
+        document.getElementById("question").textContent = questions[current];
+      } else {
+        showResult();
+      }
+    }
+
+    function answer(isYes) {
+      answers.push(isYes ? "1" : "2"); // はい=1, いいえ=2
+      if (isYes) yesCount++;
+      current++;
+      showQuestion();
+    }
+
+    function showResult() {
+      let type;
+      if (yesCount <= 8) type = "💎 クール理性タイプ\n感情に流されず落ち着いた恋愛をする傾向があります。";
+      else if (yesCount <= 16) type = "🌸 癒し系タイプ\n相手に安心感を与える恋愛をします。";
+      else if (yesCount <= 24) type = "🔥 情熱タイプ\n好きになったら一直線！情熱的です。";
+      else type = "💞 依存愛タイプ\n相手に強く気持ちを寄せる傾向があります。";
+
+      document.getElementById("question").style.display = "none";
+      document.getElementById("buttons").style.display = "none";
+      document.getElementById("result").textContent =
+        `あなたの診断結果は...\n\n${type}`;
+      document.getElementById("answers").textContent =
+        `【回答番号】\n${answers.join(" ")}`;
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
